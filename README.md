@@ -25,7 +25,7 @@ python -m venv .venv
 - Linux/Mac: `source .venv/bin/activate`
 
 4. **Install dependencies**
-# run
+###### run
 ```bash
 pip install Flask Flask-SQLAlchemy Flask-Login PyMySQL python-dotenv
 ```
