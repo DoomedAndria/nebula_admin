@@ -12,8 +12,29 @@ sass <src> <destination> --style=compressed
 ```
 
 
-## SQL
-``` 
-URI ->  "mysql+pymysql://root:yourpassword@localhost/admin_panel"
+## Database
 
+### Connection URI
 ```
+mysql+pymysql://root:yourpassword@localhost/admin_panel
+```
+
+### Database Seeding
+```bash
+# Seed database with sample users
+python seeders.py
+
+# Clear database and seed fresh data
+python seeders.py --fresh
+
+# Only clear database without seeding
+python seeders.py --clear-only
+```
+
+**Default Seeded Users:**
+- john.doe@example.com
+- jane.smith@example.com
+- admin@example.com
+- test@example.com
+
+All users have password: `password123`

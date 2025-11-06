@@ -35,7 +35,6 @@ def ensure_database_exists(config_obj):
 
 
 def create_app(config_name=None):
-    """Application factory pattern"""
     if config_name is None:
         config_name = os.environ.get('FLASK_ENV', 'default')
 
@@ -70,7 +69,6 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-# Create app instance
 app = create_app()
 
 
