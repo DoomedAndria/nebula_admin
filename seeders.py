@@ -47,9 +47,8 @@ def seed_users():
         )
 
         db.session.add(user)
-        db.session.flush()  # Get user.uid before committing
+        db.session.flush()
 
-        # Create credential for the user
         credential = Credential(
             uid=user.uid,
             email=user_data['email']
@@ -65,7 +64,6 @@ def seed_users():
 
 
 def seed_all():
-    """Run all seeders"""
     with app.app_context():
         print("\n" + "="*50)
         print("  DATABASE SEEDER")
@@ -82,7 +80,6 @@ def clear_database():
     with app.app_context():
         print("\nWARNING: Clearing database...")
 
-        # Delete in order (credentials first due to foreign key)
         Credential.query.delete()
         User.query.delete()
 
