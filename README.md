@@ -11,22 +11,16 @@ npm install -g sass
 sass <src> <destination> --style=compressed
 ```
 
-
-## Database
-
-### Connection URI
-```
-mysql+pymysql://root:yourpassword@localhost/admin_panel
-```
-
 ### Database Seeding
 ```bash
 # Seed database with sample users
 python seeders.py
-
+```
+```bash
 # Clear database and seed fresh data
 python seeders.py --fresh
-
+```
+```bash
 # Only clear database without seeding
 python seeders.py --clear-only
 ```

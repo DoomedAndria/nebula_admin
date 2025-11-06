@@ -1,15 +1,12 @@
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
 load_dotenv()
 
 
 class Config:
-    """Base configuration"""
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret_key'
 
-    # Database Configuration
     DB_USER = os.environ.get('DB_USER', 'root')
     DB_PASSWORD = os.environ.get('DB_PASSWORD', 'password')
     DB_HOST = os.environ.get('DB_HOST', 'localhost')
@@ -20,28 +17,23 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_ECHO = False
 
-    # Security
     SESSION_COOKIE_HTTPONLY = True
-    SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
+    SESSION_COOKIE_SECURE = False
     REMEMBER_COOKIE_HTTPONLY = True
 
-    # Flask-WTF CSRF Protection
     WTF_CSRF_ENABLED = True
     WTF_CSRF_TIME_LIMIT = None
 
 
 class DevelopmentConfig(Config):
-    """Development configuration"""
     DEBUG = True
     SQLALCHEMY_ECHO = True
 
 
 class ProductionConfig(Config):
-    """Production configuration"""
     DEBUG = False
     SESSION_COOKIE_SECURE = True
 
-    # Ensure SECRET_KEY is set in production
     @classmethod
     def init_app(cls, app):
         if not os.environ.get('SECRET_KEY'):
@@ -49,13 +41,11 @@ class ProductionConfig(Config):
 
 
 class TestingConfig(Config):
-    """Testing configuration"""
     TESTING = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
     WTF_CSRF_ENABLED = False
 
 
-# Configuration dictionary
 config = {
     'development': DevelopmentConfig,
     'production': ProductionConfig,

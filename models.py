@@ -17,26 +17,21 @@ class User(UserMixin, db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
     is_active = db.Column(db.Boolean, default=True, nullable=False)
 
-    # Relationship
     credentials = db.relationship('Credential', backref='user', lazy=True, cascade='all, delete-orphan')
 
     def get_id(self):
-        """Required for Flask-Login"""
         return str(self.uid)
 
     @property
     def is_authenticated(self):
-        """Required for Flask-Login"""
         return True
 
     @property
     def is_anonymous(self):
-        """Required for Flask-Login"""
         return False
 
     @property
     def fullname(self):
-        """Return user's full name"""
         return f"{self.firstname} {self.lastname}"
 
     def __repr__(self):
@@ -54,11 +49,9 @@ class Credential(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
 
     def set_password(self, password):
-        """Hash and set the password"""
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
-        """Check if provided password matches the hash"""
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
