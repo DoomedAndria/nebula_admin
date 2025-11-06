@@ -5,11 +5,6 @@ main_bp = Blueprint('main', __name__)
 
 
 @main_bp.route('/')
-def index():
-    return render_template('index.jinja2')
-
-
-@main_bp.route('/dashboard')
 @login_required
-def dashboard():
+def index():
     return render_template('index.jinja2')

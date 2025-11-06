@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
+from werkzeug.urls import url_parse
 from models import db, User, Credential
 
 auth_bp = Blueprint('auth', __name__)
@@ -39,9 +40,9 @@ def login():
         flash(f'Welcome back, {user.firstname}!', 'success')
 
         next_page = request.args.get('next')
-        if next_page:
+        if next_page and url_parse(next_page).netloc == '':
             return redirect(next_page)
-        return redirect(url_for('main.dashboard'))
+        return redirect(url_for('main.index'))
 
     return render_template('login.jinja2')
 
@@ -96,7 +97,7 @@ def register():
             flash(f'Account created successfully! Welcome, {firstname}!', 'success')
 
             login_user(user)
-            return redirect(url_for('main.dashboard'))
+            return redirect(url_for('main.index'))
 
         except Exception as e:
             db.session.rollback()
